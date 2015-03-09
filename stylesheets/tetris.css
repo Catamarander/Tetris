@@ -1,0 +1,25 @@
+.row {
+  min-height: 100px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.contain {
+  min-height: 100px;
+  margin: 0 auto;
+}
+
+.tetris-row {
+  width: 50%;
+  margin: 0 auto;
+  min-height: 10px;
+  clear: both;
+}
+
+.tetris-cell {
+  min-width: 20px;
+  min-height: 20px;
+  outline-style: solid;
+  outline-width: 1px;
+  float: left;
+}
