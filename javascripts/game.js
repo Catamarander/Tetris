@@ -5,5 +5,6 @@
 
   var Game = Tetris.Game = function () {
     this.board = new Tetris.Board();
+    this.view = new Tetris.View();
   };
-}
+})();
