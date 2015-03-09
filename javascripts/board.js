@@ -6,6 +6,7 @@
   var Board = Tetris.Board = function () {
     this.grid = [];
     this.populateGrid();
+    this.generateTetromino();
   };
 
   Board.prototype.populateGrid = function () {
