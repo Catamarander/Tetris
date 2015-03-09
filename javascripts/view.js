@@ -18,7 +18,6 @@
         var $cell = $('<div>');
         $cell.attr({
           x: j,
-          y: i,
           class: "tetris-cell"
         })
 
