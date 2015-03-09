@@ -26,3 +26,31 @@
   background-color: lightgray;
   float: left;
 }
+
+.l {
+  background-color: magenta;
+}
+
+.s {
+  background-color: yellow;
+}
+
+.i {
+  background-color: cyan;
+}
+
+.j {
+  background-color: purple;
+}
+
+.t {
+  background-color: green;
+}
+
+.z {
+  background-color: orange;
+}
+
+.o {
+  background-color: navy;
+}

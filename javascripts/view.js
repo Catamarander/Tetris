@@ -27,5 +27,10 @@
 
       $('.board').append($row)
     }
-  }
+  };
+
+  View.prototype.setCell = function (x, y, shapeClass) {
+    var $cell = $('.board').find("[y=" + y + "]").find("[x=" + x + "]")
+    $cell.addClass(shapeClass)
+  };
 })();
