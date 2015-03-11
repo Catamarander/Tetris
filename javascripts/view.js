@@ -32,4 +32,9 @@
     var $cell = $('.board').find("[y=" + y + "]").find("[x=" + x + "]")
     $cell.addClass(shapeClass)
   };
+
+  View.prototype.unSetCell = function (x, y, shapeClass) {
+    var $cell = $('.board').find("[y=" + y + "]").find("[x=" + x + "]")
+    $cell.removeClass(shapeClass)
+  }
 })();

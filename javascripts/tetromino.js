@@ -7,7 +7,7 @@
     this.shape = this.randomShape();
     this.layouts = this.shape[0];
     this.shapeName = this.shape[1];
-    this.rotation = 3;
+    this.rotation = 0;
   }
 
   Tetromino.prototype.randomShape = function () {
@@ -67,7 +67,15 @@
     var newShape = possibleShapes[idx];
 
     return [TETROMINOS[newShape], newShape];
-  }
+  };
+
+  Tetromino.prototype.descend = function () {
+    var that = this;
+    this.layouts[this.rotation].forEach( function (pos, index) {
+      that.layouts[that.rotation][index] = [pos[0] + 1, pos[1] + 0]
+      console.log(pos)
+    })
+  };
 
   Tetromino.prototype.rotate = function () {
     this.rotation += 1;
