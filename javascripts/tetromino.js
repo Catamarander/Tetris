@@ -71,15 +71,30 @@
 
   Tetromino.prototype.descend = function () {
     var that = this;
-    this.layouts[this.rotation].forEach( function (pos, index) {
-      that.layouts[that.rotation][index] = [pos[0] + 1, pos[1] + 0]
-      console.log(pos)
-    })
+    for (rotation in this.layouts) {
+      that.layouts[rotation].forEach( function (pos, index) {
+        that.layouts[rotation][index] = [pos[0] + 1, pos[1]];
+      })
+    }
   };
 
   Tetromino.prototype.rotate = function () {
     this.rotation += 1;
     this.rotation = this.rotation % 4;
     return this.shape[this.rotation]
-  }
+  };
+
+  Tetromino.prototype.move = function (dir) {
+    var that = this;
+
+    for (rotation in this.layouts) {
+      this.layouts[rotation].forEach( function (pos, index) {
+        if (dir === "left") {
+          that.layouts[rotation][index] = [pos[0], pos[1] - 1]
+        } else if (dir === "right") {
+          that.layouts[rotation][index] = [pos[0], pos[1] + 1]
+        }
+      })
+    }
+  };
 })()

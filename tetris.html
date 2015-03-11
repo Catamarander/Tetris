@@ -24,6 +24,20 @@
 
     <script type="text/javascript">
       var tetris = new Tetris.Game();
+      $( document ).ready(function() {
+        $( document ).bind( "keydown", function(e) {
+          var callback = tetris.unRenderTetromino.bind(tetris);
+          if (e.keyCode == 39) {
+            tetris.currentTetromino.move("right", callback)
+          } else if (e.keyCode == 37) {
+            tetris.currentTetromino.move("left", callback)
+          } else if (e.keyCode == 38) {
+            tetris.currentTetromino.rotate();
+          } else if (e.keyCode == 40) {
+            tetris.currentTetromino.descend();
+          }
+        });
+      });
     </script>
   </body>
 </html>

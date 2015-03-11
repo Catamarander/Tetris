@@ -11,6 +11,13 @@
 
     var that = this;
     setInterval(that.descendTetromino.bind(that), 1000)
+
+    $(document).keypress(function(e) {
+      console.log(e.keyCode)
+      if (e.keyCode == 39) {
+        console.log("Move!")
+      }
+    })
   };
 
   Game.prototype.descendTetromino = function () {
