@@ -24,6 +24,17 @@
     this.unRenderTetromino();
     this.currentTetromino.descend();
     this.renderTetromino();
+
+    var tet = this.currentTetromino;
+    var that = this;
+    tet.layouts[tet.rotation].forEach(function (pos) {
+      if (pos[0] > 18) {
+        that.board.generateTetromino();
+        that.currentTetromino = that.board.activeTetromino
+        return
+      }
+
+    })
   };
 
   Game.prototype.renderTetromino = function () {
