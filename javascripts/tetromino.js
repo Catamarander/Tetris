@@ -107,7 +107,7 @@
     }
   };
 
-  Tetromino.prototype.current = function () {
+  Tetromino.prototype.currentLayout = function () {
     return this.layouts[this.rotation]
   }
 })()

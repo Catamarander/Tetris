@@ -43,9 +43,9 @@
     for (var i = 0; i < this.board.grid.length; i++) {
       for (var j = 0; j < this.board.grid[i].length; j++) {
         if (this.board.grid[i][j] != 0) {
-          this.setCell(i, j, this.board.grid[i][j])
+          this.setCell(j, i, this.board.grid[i][j])
         } else {
-          this.unSetCell(i, j)
+          this.unSetCell(j, i)
         }
       }
     }

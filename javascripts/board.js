@@ -4,26 +4,29 @@
   }
 
   var Board = Tetris.Board = function () {
-    this.grid = [];
-    this.populateGrid();
+    this.grid = this.createGrid();
+    this.restingGrid = this.createGrid();
     this.generateTetromino();
   };
 
-  Board.prototype.populateGrid = function () {
+  Board.prototype.createGrid = function () {
+    var grid = [];
     for (var i = 0; i <= 20; i++) {
-      this.grid[i] = [];
+      grid[i] = [];
       for (var j = 0; j <= 10; j++) {
-        this.grid[i].push(0);
+        grid[i].push(0);
       }
     }
+
+    return grid;
   };
 
-  Board.prototype.get = function (x, y) {
-    return this.grid[y][x]
+  Board.prototype.get = function (grid, x, y) {
+    return grid[y][x]
   };
 
-  Board.prototype.set = function (x, y, val) {
-    this.grid[y][x] = val;
+  Board.prototype.set = function (grid, x, y, val) {
+    grid[y][x] = val;
   };
 
   Board.prototype.generateTetromino = function () {
@@ -43,12 +46,20 @@
     var that = this;
     tet.layouts[tet.rotation].forEach(function (pos) {
       if (pos[0] > 18) {
+        that.addToRestingGrid(that.activeTetromino);
         that.generateTetromino();
         return
       }
     })
     this.activeTetromino.descend();
     this.updateGrid();
+  };
+
+  Board.prototype.addToRestingGrid = function (tetromino) {
+    var that = this;
+    tetromino.currentLayout().forEach( function (pos) {
+      that.set(that.restingGrid, pos[1], pos[0], tetromino.shapeName)
+    })
   };
 
   Board.prototype.rotate = function () {
@@ -58,18 +69,20 @@
   Board.prototype.clearGrid = function () {
     for (var i = 0; i < this.grid.length; i++) {
       for (var j = 0; j < this.grid[i].length; j++) {
-        this.grid[i][j] = 0;
+        if (this.restingGrid[i][j] === 0) {
+          this.grid[i][j] = 0;
+        }
       }
     }
   };
 
   Board.prototype.updateGrid = function () {
     this.clearGrid();
-    var layout = this.activeTetromino.current();
+    var layout = this.activeTetromino.currentLayout();
     var shape = this.activeTetromino.shapeName
     var that = this;
     layout.forEach( function (pos) {
-      that.set(pos[0], pos[1], shape)
+      that.set(that.grid, pos[1], pos[0], shape)
     })
   }
 })();
