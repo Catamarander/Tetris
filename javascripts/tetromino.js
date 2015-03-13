@@ -106,4 +106,8 @@
       }
     }
   };
+
+  Tetromino.prototype.current = function () {
+    return this.layouts[this.rotation]
+  }
 })()

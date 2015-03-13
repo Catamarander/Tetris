@@ -29,4 +29,30 @@
   Board.prototype.generateTetromino = function () {
     this.activeTetromino = new Tetris.Tetromino();
   };
+
+  Board.prototype.toRight = function () {
+    this.activeTetromino.move("right")
+  };
+
+  Board.prototype.toLeft = function () {
+    this.activeTetromino.move("left")
+  };
+
+  Board.prototype.descend = function () {
+    this.activeTetromino.descend();
+    this.updateGrid();
+  };
+
+  Board.prototype.rotate = function () {
+    this.activeTetromino.rotate();
+  };
+
+  Board.prototype.updateGrid = function () {
+    var layout = this.activeTetromino.current();
+    var shape = this.activeTetromino.shapeName
+    var that = this;
+    layout.forEach( function (pos) {
+      that.set(pos[0], pos[1], shape)
+    })
+  }
 })();

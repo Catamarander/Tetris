@@ -3,7 +3,8 @@
     window.Tetris = {};
   }
 
-  var View = Tetris.View = function () {
+  var View = Tetris.View = function (board) {
+    this.board = board;
     this.createView();
   };
 
@@ -36,5 +37,15 @@
   View.prototype.unSetCell = function (x, y, shapeClass) {
     var $cell = $('.board').find("[y=" + y + "]").find("[x=" + x + "]")
     $cell.removeClass(shapeClass)
+  };
+
+  View.prototype.render = function () {
+    for (var i = 0; i < this.board.grid.length; i++) {
+      for (var j = 0; j < this.board.grid[i].length; j++) {
+        if (this.board.grid[i][j] != 0) {
+          this.setCell(i, j, this.board.grid[i][j])
+        }
+      }
+    }
   }
 })();

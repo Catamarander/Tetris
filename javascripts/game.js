@@ -5,16 +5,18 @@
 
   var Game = Tetris.Game = function () {
     this.board = new Tetris.Board();
-    this.view = new Tetris.View();
+    this.view = new Tetris.View(this.board);
     this.currentTetromino = this.board.activeTetromino;
-    this.renderTetromino();
-
-    var that = this;
-    setInterval(that.descendTetromino.bind(that), 160)
   };
 
+  Game.prototype.play = function () {
+    var that = this;
+    setInterval(that.board.descend.bind(that.board), 160)
+    setInterval(that.board.updateGrid(), 50)
+    setInterval(that.view.render(), 100)
+  }
+
   Game.prototype.descendTetromino = function () {
-    this.unRenderTetromino();
     this.currentTetromino.descend();
     this.renderTetromino();
 
@@ -36,11 +38,4 @@
       that.view.setCell(pos[1], pos[0], that.currentTetromino.shapeName)
     })
   };
-
-  Game.prototype.unRenderTetromino = function () {
-    var that = this;
-    this.currentTetromino.layouts[this.currentTetromino.rotation].forEach (function (pos) {
-      that.view.unSetCell(pos[1], pos[0], that.currentTetromino.shapeName)
-    })
-  }
 })();
