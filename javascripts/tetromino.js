@@ -96,5 +96,14 @@
         }
       })
     }
+
+    for (pos in this.layouts[this.rotation]) {
+      var coord = this.layouts[this.rotation][pos];
+      if (coord[1] < 0) {
+        this.move("right")
+      } else if (coord[1] > 9) {
+        this.move("left")
+      }
+    }
   };
 })()
