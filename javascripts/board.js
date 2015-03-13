@@ -39,6 +39,14 @@
   };
 
   Board.prototype.descend = function () {
+    var tet = this.activeTetromino;
+    var that = this;
+    tet.layouts[tet.rotation].forEach(function (pos) {
+      if (pos[0] > 18) {
+        that.generateTetromino();
+        return
+      }
+    })
     this.activeTetromino.descend();
     this.updateGrid();
   };

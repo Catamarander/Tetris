@@ -14,22 +14,6 @@
     setInterval(that.board.descend.bind(that.board), 160)
     setInterval(that.board.updateGrid.bind(that.board), 50)
     setInterval(that.view.render.bind(that.view), 100)
-  }
-
-  Game.prototype.descendTetromino = function () {
-    this.currentTetromino.descend();
-    this.renderTetromino();
-
-    var tet = this.currentTetromino;
-    var that = this;
-    tet.layouts[tet.rotation].forEach(function (pos) {
-      if (pos[0] > 18) {
-        that.board.generateTetromino();
-        that.currentTetromino = that.board.activeTetromino
-        return
-      }
-
-    })
   };
 
   Game.prototype.renderTetromino = function () {
