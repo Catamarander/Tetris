@@ -47,7 +47,16 @@
     this.activeTetromino.rotate();
   };
 
+  Board.prototype.clearGrid = function () {
+    for (var i = 0; i < this.grid.length; i++) {
+      for (var j = 0; j < this.grid[i].length; j++) {
+        this.grid[i][j] = 0;
+      }
+    }
+  };
+
   Board.prototype.updateGrid = function () {
+    this.clearGrid();
     var layout = this.activeTetromino.current();
     var shape = this.activeTetromino.shapeName
     var that = this;

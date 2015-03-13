@@ -34,9 +34,9 @@
     $cell.addClass(shapeClass)
   };
 
-  View.prototype.unSetCell = function (x, y, shapeClass) {
+  View.prototype.unSetCell = function (x, y) {
     var $cell = $('.board').find("[y=" + y + "]").find("[x=" + x + "]")
-    $cell.removeClass(shapeClass)
+    $cell.attr({class: 'tetris-cell'})
   };
 
   View.prototype.render = function () {
@@ -44,6 +44,8 @@
       for (var j = 0; j < this.board.grid[i].length; j++) {
         if (this.board.grid[i][j] != 0) {
           this.setCell(i, j, this.board.grid[i][j])
+        } else {
+          this.unSetCell(i, j)
         }
       }
     }

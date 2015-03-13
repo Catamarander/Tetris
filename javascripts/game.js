@@ -12,8 +12,8 @@
   Game.prototype.play = function () {
     var that = this;
     setInterval(that.board.descend.bind(that.board), 160)
-    setInterval(that.board.updateGrid(), 50)
-    setInterval(that.view.render(), 100)
+    setInterval(that.board.updateGrid.bind(that.board), 50)
+    setInterval(that.view.render.bind(that.view), 100)
   }
 
   Game.prototype.descendTetromino = function () {
