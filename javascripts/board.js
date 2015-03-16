@@ -49,16 +49,16 @@
   };
 
   Board.prototype.descend = function () {
-    var tet = this.activeTetromino;
-    var that = this;
-
     if (this.checkCollisions("descend")) {
       this.addToLandedGrid(this.activeTetromino);
       this.generateTetromino();
       return
     }
 
+    var tet = this.activeTetromino;
+    var that = this;
     var stillFalling = true;
+
     tet.layouts[tet.rotation].forEach(function (pos) {
       if (pos[0] > 18) {
         that.addToLandedGrid(that.activeTetromino);
@@ -79,12 +79,11 @@
     tetromino.currentLayout().forEach( function (pos) {
       that.set(that.landedGrid, pos[1], pos[0], tetromino.shapeName)
     })
+    this.checkLine();
   };
 
   Board.prototype.rotate = function () {
-    if (this.checkCollisions("rotate")) {
-
-    } else {
+    if (!this.checkCollisions("rotate")) {
       this.activeTetromino.rotate();
     }
   };
@@ -130,6 +129,32 @@
 
     if (occupied) { return true }
     return false
+  };
+
+  Board.prototype.checkLine = function () {
+    var completeLine = true;
+    var that = this;
+
+    this.landedGrid.forEach( function (row, row_index) {
+      completeLine = true;
+      row.forEach( function (cell) {
+        if (cell == 0) {
+          completeLine = false;
+        }
+      })
+      if (completeLine) {
+        that.deleteLine(row_index);
+        return
+      }
+    })
+  };
+
+  Board.prototype.deleteLine = function (y_index) {
+    var board = this;
+    this.grid[y_index].forEach( function (x, x_index) {
+      board.set(board.grid, x_index, y_index, 0)
+      board.set(board.landedGrid, x_index, y_index, 0)
+    })
   };
 
   Board.prototype.printGrid = function () {
