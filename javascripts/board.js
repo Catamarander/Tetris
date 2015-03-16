@@ -37,18 +37,22 @@
   };
 
   Board.prototype.toRight = function () {
-    this.activeTetromino.move("right")
+    if (!this.checkCollisions("move", "right")) {
+      this.activeTetromino.move("right")
+    }
   };
 
   Board.prototype.toLeft = function () {
-    this.activeTetromino.move("left")
+    if (!this.checkCollisions("move", "left")) {
+      this.activeTetromino.move("left")
+    }
   };
 
   Board.prototype.descend = function () {
     var tet = this.activeTetromino;
     var that = this;
 
-    if (this.checkCollisions()) {
+    if (this.checkCollisions("descend")) {
       this.addToLandedGrid(this.activeTetromino);
       this.generateTetromino();
       return
@@ -56,7 +60,7 @@
 
     var stillFalling = true;
     tet.layouts[tet.rotation].forEach(function (pos) {
-      if (stillFalling && pos[0] > 18) {
+      if (pos[0] > 18) {
         that.addToLandedGrid(that.activeTetromino);
         that.generateTetromino();
         stillFalling = false;
@@ -78,7 +82,11 @@
   };
 
   Board.prototype.rotate = function () {
-    this.activeTetromino.rotate();
+    if (this.checkCollisions("rotate")) {
+
+    } else {
+      this.activeTetromino.rotate();
+    }
   };
 
   Board.prototype.clearGrid = function () {
@@ -101,15 +109,14 @@
     })
   };
 
-  Board.prototype.checkCollisions = function () {
+  Board.prototype.checkCollisions = function (callback, options) {
     var possibleTet = new Tetris.Tetromino({
       shape: this.activeTetromino.shape,
       rotation: this.activeTetromino.rotation,
       layouts: this.activeTetromino.layouts
     })
 
-    possibleTet.descend();
-    var stupid = this.activeTetromino.currentLayout()[0]
+    possibleTet[callback](options);
 
     var board = this;
     var occupied = false;
@@ -117,14 +124,12 @@
     possibleTet.currentLayout().forEach(function (pos) {
       if (pos[0] == 20 || board.landedGrid[pos[0]][pos[1]] != 0) {
         occupied = true;
+        return
       }
     })
 
-    if (occupied) {
-      return true
-    } else {
-      return false
-    }
+    if (occupied) { return true }
+    return false
   };
 
   Board.prototype.printGrid = function () {
