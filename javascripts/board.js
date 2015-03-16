@@ -155,7 +155,15 @@
       board.set(board.grid, x_index, y_index, 0)
       board.set(board.landedGrid, x_index, y_index, 0)
     })
+    this.shiftRowsDown(y_index)
   };
+
+  Board.prototype.shiftRowsDown = function (y_index) {
+    this.grid.splice(y_index, y_index);
+    this.landedGrid.splice(y_index, y_index);
+    this.grid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  }
 
   Board.prototype.printGrid = function () {
     this.grid.forEach( function (row) {
