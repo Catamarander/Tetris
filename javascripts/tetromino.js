@@ -7,7 +7,7 @@
     if (options) {
       this.shape = options.shape;
       this.shapeName = this.shape[1];
-      this.layouts = JSON.parse(JSON.stringify(options.layouts));
+      this.layouts = $.extend(true, {}, options.layouts);
       this.rotation = options.rotation;
     } else {
       this.shape = this.randomShape();
