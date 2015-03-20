@@ -4,6 +4,7 @@
   }
 
   var Board = Tetris.Board = function () {
+    this.isEnded = false;
     this.grid = this.createGrid();
     this.landedGrid = this.createGrid();
     this.generateTetromino();
@@ -34,6 +35,9 @@
 
   Board.prototype.generateTetromino = function () {
     this.activeTetromino = new Tetris.Tetromino();
+    if (this.checkCollisions("descend")) {
+      this.end();
+    }
   };
 
   Board.prototype.toRight = function () {
@@ -48,6 +52,23 @@
     }
   };
 
+  Board.prototype.superDescend = function(callback) {
+    while (!this.checkCollisions("descend")) {
+      this.descend();
+    }
+  };
+
+  Board.prototype.playing = function () {
+    var playing = true;
+    this.landedGrid[0].forEach( function (cell) {
+      debugger
+      if (cell != 0) {
+        playing = false;
+      }
+    })
+    return playing;
+  };
+
   Board.prototype.descend = function () {
     if (this.checkCollisions("descend")) {
       this.addToLandedGrid(this.activeTetromino);
@@ -55,9 +76,9 @@
       return
     }
 
-    var tet = this.activeTetromino;
-    var that = this;
-    var stillFalling = true;
+    var tet = this.activeTetromino,
+      that = this,
+      stillFalling = true;
 
     tet.layouts[tet.rotation].forEach(function (pos) {
       if (pos[0] > 18) {
@@ -100,9 +121,10 @@
 
   Board.prototype.updateGrid = function () {
     this.clearGrid();
-    var layout = this.activeTetromino.currentLayout();
-    var shape = this.activeTetromino.shapeName
-    var that = this;
+    var layout = this.activeTetromino.currentLayout(),
+      shape = this.activeTetromino.shapeName,
+      that = this;
+
     layout.forEach( function (pos) {
       that.set(that.grid, pos[1], pos[0], shape)
     })
@@ -117,11 +139,14 @@
 
     possibleTet[callback](options);
 
-    var board = this;
-    var occupied = false;
+    var board = this,
+      occupied = false;
 
     possibleTet.currentLayout().forEach(function (pos) {
-      if (pos[0] == 20 || board.landedGrid[pos[0]][pos[1]] != 0) {
+      if (pos[0] != 20 && typeof board.landedGrid[pos[0]] == "undefined") {
+        debugger
+      }
+      if (pos[0] >= 20 || board.landedGrid[pos[0]][pos[1]] != 0) {
         occupied = true;
         return
       }
@@ -132,21 +157,22 @@
   };
 
   Board.prototype.checkLine = function () {
-    var completeLine = true;
-    var that = this;
+    var completeLine = true
+      that = this,
+      landed = this.landedGrid;
 
-    this.landedGrid.forEach( function (row, row_index) {
+    for (var i = landed.length - 1; i > -1; i--) {
       completeLine = true;
-      row.forEach( function (cell) {
+      landed[i].forEach ( function (cell) {
         if (cell == 0) {
-          completeLine = false;
+          completeLine = false
         }
       })
       if (completeLine) {
-        that.deleteLine(row_index);
-        return
+        that.shiftRowsDown(i)
+        i++;
       }
-    })
+    }
   };
 
   Board.prototype.deleteLine = function (y_index) {
@@ -155,14 +181,21 @@
       board.set(board.grid, x_index, y_index, 0)
       board.set(board.landedGrid, x_index, y_index, 0)
     })
-    this.shiftRowsDown(y_index)
   };
 
   Board.prototype.shiftRowsDown = function (y_index) {
-    this.grid.splice(y_index, y_index);
-    this.landedGrid.splice(y_index, y_index);
+    this.grid.splice(y_index, 1);
+    this.landedGrid.splice(y_index, 1);
     this.grid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  };
+
+  Board.prototype.end = function () {
+    this.isEnded = true;
+  };
+
+  Board.prototype.isEnded = function () {
+    return this.isEnded;
   }
 
   Board.prototype.printGrid = function () {

@@ -6,15 +6,15 @@
   var Tetromino = Tetris.Tetromino = function (options) {
     if (options) {
       this.shape = options.shape;
-      this.shapeName = this.shape[1];
       this.layouts = $.extend(true, {}, options.layouts);
       this.rotation = options.rotation;
     } else {
       this.shape = this.randomShape();
       this.layouts =  this.shape[0];
-      this.shapeName = this.shape[1];
       this.rotation = 0;
     }
+
+    this.shapeName = this.shape[1];
   };
 
   Tetromino.prototype.TETROMINOS = function () {
@@ -55,10 +55,10 @@
       },
 
       "i" : {
-        0: [[0, 5], [1, 5], [2, 5], [3, 5]],
-        1: [[0, 3], [0, 4], [0, 5], [0, 6]],
-        2: [[0, 4], [1, 4], [2, 4], [3, 4]],
-        3: [[1, 3], [1, 4], [1, 5], [1, 6]]
+        0: [[0, 3], [0, 4], [0, 5], [0, 6]],
+        1: [[0, 4], [1, 4], [2, 4], [3, 4]],
+        2: [[1, 3], [1, 4], [1, 5], [1, 6]],
+        3: [[0, 5], [1, 5], [2, 5], [3, 5]]
       },
 
       "t" : {
@@ -103,15 +103,6 @@
           that.layouts[rotation][index] = [pos[0], pos[1] + 1]
         }
       })
-    }
-
-    for (pos in this.layouts[this.rotation]) {
-      var coord = this.layouts[this.rotation][pos];
-      if (coord[1] < 0) {
-        this.move("right")
-      } else if (coord[1] > 9) {
-        this.move("left")
-      }
     }
   };
 

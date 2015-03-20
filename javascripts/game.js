@@ -6,14 +6,24 @@
   var Game = Tetris.Game = function () {
     this.board = new Tetris.Board();
     this.view = new Tetris.View(this.board);
+    this.isPlaying = true;
     this.currentTetromino = this.board.activeTetromino;
   };
 
   Game.prototype.play = function () {
     var that = this;
-    setInterval(that.board.descend.bind(that.board), 160)
-    setInterval(that.board.updateGrid.bind(that.board), 50)
-    setInterval(that.view.render.bind(that.view), 100)
+    var falling = setInterval(that.board.descend.bind(that.board), 160)
+    var update = setInterval(that.board.updateGrid.bind(that.board), 50)
+    var render = setInterval(that.view.render.bind(that.view), 100)
+    var gamePlay = setInterval(function () {
+      if (that.board.isEnded) {
+        clearInterval(falling);
+        clearInterval(update);
+        clearInterval(render);
+        clearInterval(gamePlay);
+        console.log("you lose!")
+      }
+    }, 50)
   };
 
   Game.prototype.renderTetromino = function () {
