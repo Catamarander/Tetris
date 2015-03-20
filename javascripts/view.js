@@ -9,7 +9,7 @@
   };
 
   View.prototype.createView = function () {
-    for (var i = 0; i < 20; i++) {
+    for (var i = 2; i < 22; i++) {
       var $row = $('<div>');
       $row.attr({
         class: "tetris-row",

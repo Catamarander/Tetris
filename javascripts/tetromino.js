@@ -79,7 +79,7 @@
 
   Tetromino.prototype.descend = function () {
     var that = this;
-    for (rotation in this.layouts) {
+    for (var rotation in this.layouts) {
       that.layouts[rotation].forEach( function (pos, index) {
         that.layouts[rotation][index] = [pos[0] + 1, pos[1]];
       })

@@ -12,7 +12,7 @@
 
   Board.prototype.createGrid = function () {
     var grid = [];
-    for (var i = 0; i < 20; i++) {
+    for (var i = 0; i < 22; i++) {
       grid[i] = [];
       for (var j = 0; j < 10; j++) {
         grid[i].push(0);
@@ -81,7 +81,7 @@
       stillFalling = true;
 
     tet.layouts[tet.rotation].forEach(function (pos) {
-      if (pos[0] > 18) {
+      if (pos[0] > 20) {
         that.addToLandedGrid(that.activeTetromino);
         that.generateTetromino();
         stillFalling = false;
@@ -143,10 +143,10 @@
       occupied = false;
 
     possibleTet.currentLayout().forEach(function (pos) {
-      if (pos[0] != 20 && typeof board.landedGrid[pos[0]] == "undefined") {
-        debugger
-      }
-      if (pos[0] >= 20 || board.landedGrid[pos[0]][pos[1]] != 0) {
+      // if (pos[0] != 22 && typeof board.landedGrid[pos[0]] == "undefined") {
+      //   debugger
+      // }
+      if (pos[0] >= 22 || board.landedGrid[pos[0]][pos[1]] != 0) {
         occupied = true;
         return
       }
@@ -161,7 +161,7 @@
       that = this,
       landed = this.landedGrid;
 
-    for (var i = landed.length - 1; i > -1; i--) {
+    for (var i = landed.length - 1; i > 1; i--) {
       completeLine = true;
       landed[i].forEach ( function (cell) {
         if (cell == 0) {

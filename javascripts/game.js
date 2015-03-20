@@ -6,7 +6,6 @@
   var Game = Tetris.Game = function () {
     this.board = new Tetris.Board();
     this.view = new Tetris.View(this.board);
-    this.isPlaying = true;
     this.currentTetromino = this.board.activeTetromino;
   };
 
