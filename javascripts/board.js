@@ -4,6 +4,7 @@
   }
 
   var Board = Tetris.Board = function () {
+    this.queue = new Tetris.Queue(4);
     this.isEnded = false;
     this.grid = this.createGrid();
     this.landedGrid = this.createGrid();
@@ -34,7 +35,7 @@
   };
 
   Board.prototype.generateTetromino = function () {
-    this.activeTetromino = new Tetris.Tetromino();
+    this.activeTetromino = this.queue.next();
     if (this.checkCollisions("descend")) {
       this.end();
     }
@@ -58,17 +59,6 @@
     }
   };
 
-  Board.prototype.playing = function () {
-    var playing = true;
-    this.landedGrid[0].forEach( function (cell) {
-      debugger
-      if (cell != 0) {
-        playing = false;
-      }
-    })
-    return playing;
-  };
-
   Board.prototype.descend = function () {
     if (this.checkCollisions("descend")) {
       this.addToLandedGrid(this.activeTetromino);
@@ -80,7 +70,7 @@
       that = this,
       stillFalling = true;
 
-    tet.layouts[tet.rotation].forEach(function (pos) {
+    tet.currentLayout().forEach(function (pos) {
       if (pos[0] > 20) {
         that.addToLandedGrid(that.activeTetromino);
         that.generateTetromino();
@@ -131,6 +121,9 @@
   };
 
   Board.prototype.checkCollisions = function (callback, options) {
+    if (typeof this.activeTetromino == "undefined") {
+      debugger
+    }
     var possibleTet = new Tetris.Tetromino({
       shape: this.activeTetromino.shape,
       rotation: this.activeTetromino.rotation,
@@ -143,9 +136,6 @@
       occupied = false;
 
     possibleTet.currentLayout().forEach(function (pos) {
-      // if (pos[0] != 22 && typeof board.landedGrid[pos[0]] == "undefined") {
-      //   debugger
-      // }
       if (pos[0] >= 22 || board.landedGrid[pos[0]][pos[1]] != 0) {
         occupied = true;
         return
@@ -173,14 +163,6 @@
         i++;
       }
     }
-  };
-
-  Board.prototype.deleteLine = function (y_index) {
-    var board = this;
-    this.grid[y_index].forEach( function (x, x_index) {
-      board.set(board.grid, x_index, y_index, 0)
-      board.set(board.landedGrid, x_index, y_index, 0)
-    })
   };
 
   Board.prototype.shiftRowsDown = function (y_index) {

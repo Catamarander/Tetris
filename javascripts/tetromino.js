@@ -3,8 +3,12 @@
     window.Tetris = {};
   }
 
-  var Tetromino = Tetris.Tetromino = function (options) {
-    if (options) {
+  var Tetromino = Tetris.Tetromino = function (options, byName) {
+    if (byName) {
+      this.shape = this.randomShape(byName);
+      this.layouts = this.shape[0];
+      this.rotation = 0;
+    } else if (options) {
       this.shape = options.shape;
       this.layouts = $.extend(true, {}, options.layouts);
       this.rotation = options.rotation;
@@ -17,7 +21,7 @@
     this.shapeName = this.shape[1];
   };
 
-  Tetromino.prototype.TETROMINOS = function () {
+  Tetromino.TETROMINOS = function () {
     return {
       "l" : {
         0: [[0, 4], [1, 4], [2, 4], [2, 5]],
@@ -70,11 +74,13 @@
     }
   };
 
-  Tetromino.prototype.randomShape = function () {
-    var possibleShapes = ["i", "j", "l", "o", "s", "t", "z"];
-    var idx = Math.floor(Math.random() * possibleShapes.length);
-    var newShape = possibleShapes[idx];
-    return [this.TETROMINOS()[newShape], newShape];
+  Tetromino.prototype.randomShape = function (shapeName) {
+    if (!shapeName) {
+      var possibleShapes = ["i", "j", "l", "o", "s", "t", "z"];
+      var idx = Math.floor(Math.random() * possibleShapes.length);
+    }
+    var newShape = shapeName || possibleShapes[idx];
+    return [Tetromino.TETROMINOS()[newShape], newShape];
   };
 
   Tetromino.prototype.descend = function () {
