@@ -15,13 +15,15 @@
     var update = setInterval(that.board.updateGrid.bind(that.board), 50)
     var render = setInterval(that.view.render.bind(that.view), 100)
     var renderUpNext = setInterval(that.view.renderUpNext.bind(that.view), 500)
+    var scoring = setInterval(that.view.renderScore.bind(that.view), 500)
     var gamePlay = setInterval(function () {
       if (that.board.isEnded) {
         clearInterval(falling);
         clearInterval(update);
         clearInterval(render);
         clearInterval(gamePlay);
-        console.log("you lose!")
+        clearInterval(scoring);
+        console.log("Good job! Your score was: " + that.board.score)
       }
     }, 50)
   };

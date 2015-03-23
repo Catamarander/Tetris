@@ -10,6 +10,10 @@
     this.createView();
   };
 
+  View.prototype.renderScore = function () {
+    $('.score').text(this.board.score);
+  };
+
   View.prototype.createView = function () {
     for (var i = 2; i < 22; i++) {
       var $row = $('<div>');

@@ -6,6 +6,7 @@
   var Board = Tetris.Board = function () {
     this.queue = new Tetris.Queue(4);
     this.isEnded = false;
+    this.score = 0;
     this.grid = this.createGrid();
     this.landedGrid = this.createGrid();
     this.generateTetromino();
@@ -54,6 +55,7 @@
   };
 
   Board.prototype.superDescend = function(callback) {
+    this.score += 50;
     while (!this.checkCollisions("descend")) {
       this.descend();
     }
@@ -170,6 +172,7 @@
     this.landedGrid.splice(y_index, 1);
     this.grid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+    this.score += 100;
   };
 
   Board.prototype.end = function () {

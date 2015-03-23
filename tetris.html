@@ -6,10 +6,25 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="stylesheets/tetris.css">
+    <script type="text/javascript" src="javascripts/queue.js"></script>
+    <script type="text/javascript" src="javascripts/tetromino.js"></script>
+    <script type="text/javascript" src="javascripts/board.js"></script>
+    <script type="text/javascript" src="javascripts/view.js"></script>
+    <script type="text/javascript" src="javascripts/game.js"></script>
   </head>
   <body>
     <div class="row">
       <div class="col-xs-3 col-md-3 col-lg-3 col-xl-3">
+        <div class="row">
+          <div class="col-xs-4 col-md-4 col-lg-4 col-xl-4">
+          </div>
+          <div class="score-holder col-xs-4 col-md-4 col-lg-4 col-xl-4">
+            Your score is:
+            <div class="score"></div>
+          </div>
+          <div class="col-xs-4 col-md-4 col-lg-4 col-xl-4">
+          </div>
+        </div>
       </div>
       <div class="board col-xs-6 col-md-6 col-lg-6 col-xl-6">
       </div>
@@ -26,11 +41,6 @@
       </div>
     </div>
 
-    <script type="text/javascript" src="javascripts/queue.js"></script>
-    <script type="text/javascript" src="javascripts/tetromino.js"></script>
-    <script type="text/javascript" src="javascripts/board.js"></script>
-    <script type="text/javascript" src="javascripts/view.js"></script>
-    <script type="text/javascript" src="javascripts/game.js"></script>
 
     <script type="text/javascript">
       var tetris = new Tetris.Game();
