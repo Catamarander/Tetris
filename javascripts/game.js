@@ -6,7 +6,6 @@
   var Game = Tetris.Game = function () {
     this.board = new Tetris.Board();
     this.view = new Tetris.View(this.board);
-    this.currentTetromino = this.board.activeTetromino;
   };
 
   Game.prototype.play = function () {
@@ -26,12 +25,5 @@
         console.log("Good job! Your score was: " + that.board.score)
       }
     }, 50)
-  };
-
-  Game.prototype.renderTetromino = function () {
-    var that = this;
-    this.currentTetromino.layouts[this.currentTetromino.rotation].forEach( function (pos) {
-      that.view.setCell(pos[1], pos[0], that.currentTetromino.shapeName)
-    })
   };
 })();

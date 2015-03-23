@@ -17,10 +17,15 @@
       <div class="col-xs-3 col-md-3 col-lg-3 col-xl-3">
         <div class="row">
           <div class="col-xs-4 col-md-4 col-lg-4 col-xl-4">
+            Up Arrow: Rotate
+            Left Arrow: Left
+            Right Arrow: Right
+            Down Arrow: Descend
+            Space Bar: Super Descend
           </div>
           <div class="score-holder col-xs-4 col-md-4 col-lg-4 col-xl-4">
             Your score is:
-            <div class="score"></div>
+            <div class="score">0</div>
           </div>
           <div class="col-xs-4 col-md-4 col-lg-4 col-xl-4">
           </div>
@@ -61,7 +66,7 @@
             board.descend();
           } else if (e.keyCode == 32) {
             e.preventDefault();
-            board.superDescend();
+            board.superDescend(false);
           } else if (e.keyCode == 68) {
             debugger
           }

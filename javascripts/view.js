@@ -43,10 +43,10 @@
   View.prototype.render = function () {
     for (var i = 0; i < this.board.grid.length; i++) {
       for (var j = 0; j < this.board.grid[i].length; j++) {
+        this.unSetCell('.board', j, i, 'tetris-cell')
         if (this.board.grid[i][j] != 0) {
           this.setCell('.board', j, i, this.board.grid[i][j])
         } else {
-          this.unSetCell('.board', j, i, 'tetris-cell')
         }
       }
     }
