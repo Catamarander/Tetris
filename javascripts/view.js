@@ -6,56 +6,29 @@
   var View = Tetris.View = function (board) {
     this.board = board;
     this.queue = this.board.queue;
-    this.createUpNext();
-    this.createView();
+    this.createViews(".up-next", "up-next-row", "up-next-cell", 17, 6);
+    this.createViews(".board", "tetris-row", "tetris-cell", 20, 10);
+  };
+
+  View.prototype.createViews = function (el, outerName, innerName, height, width) {
+    for (var i = 2; i < height + 2; i++) {
+      var $row = $('<div>');
+      $row.attr({ class: outerName, y: i });
+
+      for (var j = 0; j < width; j++) {
+        var $cell = $('<div>');
+        $cell.attr({ x: j, class: innerName });
+
+        $row.append($cell)
+      }
+
+      $(el).append($row)
+    }
   };
 
   View.prototype.renderScore = function () {
     $('.score').text(this.board.score);
   };
-
-  View.prototype.createView = function () {
-    for (var i = 2; i < 22; i++) {
-      var $row = $('<div>');
-      $row.attr({
-        class: "tetris-row",
-        y: i
-      })
-      for (var j = 0; j < 10; j++) {
-        var $cell = $('<div>');
-        $cell.attr({
-          x: j,
-          class: "tetris-cell"
-        })
-
-        $row.append($cell)
-      }
-
-      $('.board').append($row)
-    }
-  };
-
-  View.prototype.createUpNext = function () {
-    for (var i = 0; i < 17; i++) {
-      var $row = $('<div>');
-      $row.attr({
-        class: "up-next-row",
-        y: i
-      })
-
-      for (var j = 0; j < 6; j++) {
-        var $cell = $('<div>');
-        $cell.attr({
-          x: j,
-          class: "up-next-cell"
-        })
-
-        $row.append($cell)
-      }
-
-      $('.up-next').append($row)
-    }
-  }
 
   View.prototype.setCell = function (el, x, y, shapeClass) {
     var $cell = $(el).find("[y=" + y + "]").find("[x=" + x + "]")
@@ -80,7 +53,7 @@
   };
 
   View.prototype.clearUpNext = function () {
-    for (var i = 0; i < 16; i++) {
+    for (var i = 0; i < 18; i++) {
       for (var j = 0; j < 7; j++) {
         this.unSetCell('.up-next', j, i, 'up-next-cell')
       }
@@ -94,9 +67,9 @@
       var shape = this.queue.upNext[i];
       var shapeName = shape.shapeName;
       shape.layouts[0].forEach(function (arr) {
-        var buffer = 1;
+        var buffer = 3;
         if (shapeName === "i") {
-          buffer = 2;
+          buffer = 4;
         }
         that.setCell('.up-next', arr[1] - 2, (arr[0] + (4 * i + buffer)), shapeName )
       })

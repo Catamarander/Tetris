@@ -24,14 +24,7 @@
     return grid;
   };
 
-  Board.prototype.get = function (grid, x, y) {
-    return grid[y][x]
-  };
-
   Board.prototype.set = function (grid, x, y, val) {
-    if (typeof grid[y] === "undefined" ) {
-      debugger
-    }
     grid[y][x] = val;
   };
 
@@ -123,9 +116,6 @@
   };
 
   Board.prototype.checkCollisions = function (callback, options) {
-    if (typeof this.activeTetromino == "undefined") {
-      debugger
-    }
     var possibleTet = new Tetris.Tetromino({
       shape: this.activeTetromino.shape,
       rotation: this.activeTetromino.rotation,
@@ -140,7 +130,6 @@
     possibleTet.currentLayout().forEach(function (pos) {
       if (pos[0] >= 22 || board.landedGrid[pos[0]][pos[1]] != 0) {
         occupied = true;
-        return
       }
     })
 
@@ -168,8 +157,8 @@
   };
 
   Board.prototype.shiftRowsDown = function (y_index) {
-    this.grid.splice(y_index, 1);
     this.landedGrid.splice(y_index, 1);
+    this.grid.splice(y_index, 1);
     this.grid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     this.landedGrid.unshift([0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
     this.score += 100;
@@ -183,15 +172,15 @@
     return this.isEnded;
   }
 
-  Board.prototype.printGrid = function () {
-    this.grid.forEach( function (row) {
-      console.log("\n" + row)
-    })
-  };
-
-  Board.prototype.printLanded = function () {
-    this.landedGrid.forEach( function (row) {
-      console.log("\n" + row)
-    })
-  };
 })();
+  // Board.prototype.printGrid = function () {
+  //   this.grid.forEach( function (row) {
+  //     console.log("\n" + row)
+  //   })
+  // };
+  //
+  // Board.prototype.printLanded = function () {
+  //   this.landedGrid.forEach( function (row) {
+  //     console.log("\n" + row)
+  //   })
+  // };
