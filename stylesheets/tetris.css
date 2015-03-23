@@ -10,6 +10,27 @@
   margin: 0 auto;
 }
 
+.up-next {
+  min-width: 150px;
+  min-height: 100px;
+}
+
+.up-next-row {
+  min-width: 180px;
+  min-height: 10px;
+  clear: both;
+}
+
+.up-next-cell {
+  min-width: 30px;
+  min-height: 30px;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: darkgray;
+  background-color: lightgray;
+  float: left;
+}
+
 .tetris-row {
   width: 50%;
   margin: 0 auto;

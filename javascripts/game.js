@@ -14,6 +14,7 @@
     var falling = setInterval(that.board.descend.bind(that.board), 160)
     var update = setInterval(that.board.updateGrid.bind(that.board), 50)
     var render = setInterval(that.view.render.bind(that.view), 100)
+    var renderUpNext = setInterval(that.view.renderUpNext.bind(that.view), 500)
     var gamePlay = setInterval(function () {
       if (that.board.isEnded) {
         clearInterval(falling);
