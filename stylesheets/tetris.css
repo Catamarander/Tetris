@@ -7,25 +7,51 @@ h3 {
   margin-top: 50px;
   height: 600px;
   width: 615px;
+  position: relative;
 }
 
-.left-side {
+.left-side, .screen {
   height: 100%;
   width: 300px;
-  float: left;
   margin-bottom: 20px;
   margin-right: 14px;
+  position: absolute;
+}
+
+.screen {
+  z-index: 10;
+  background-color: black;
+  opacity: .65;
+  margin: 0 auto;
+}
+
+button {
+  text-align: center;
+  top: 271px;
+  left: 34px;
+  font-size: 2.5em;
+  border-radius: 15px;
+  position: absolute;
 }
 
 .right-side {
   height: 100%;
   width: 300px;
-  float: left;
+  left: 300px;
   margin-bottom: 10px;
+  position: absolute;
 }
 
 .top {
   margin-bottom: 20px;
+}
+
+.directions {
+  min-width: 200px;
+  text-align: center;
+  left: 350px;
+  top: 490px;
+  position: absolute;
 }
 
 .dir {
@@ -43,14 +69,6 @@ h3 {
   text-align: center;
   padding: 5px;
   font-size: 4em;
-}
-
-.directions {
-  min-width: 200px;
-  text-align: center;
-  margin-top: 10px;
-  padding: 5px;
-  padding-left: 10px;
 }
 
 .up-next {

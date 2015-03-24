@@ -8,8 +8,19 @@
     this.view = new Tetris.View(this.board);
   };
 
+  Game.prototype.newGame = function () {
+    var that = this;
+    $( document ).one( "keydown", function (e) {
+      if (e.keyCode == 13 ) {
+        that.play();
+      }
+    })
+  }
+
   Game.prototype.play = function () {
     var that = this;
+    this.board.clearAllGrids();
+    $('.screen').hide();
     var falling = setInterval(that.board.descend.bind(that.board), 160)
     var update = setInterval(that.board.updateGrid.bind(that.board), 50)
     var render = setInterval(that.view.render.bind(that.view), 100)
@@ -20,9 +31,10 @@
         clearInterval(falling);
         clearInterval(update);
         clearInterval(render);
+        clearInterval(renderUpNext);
         clearInterval(gamePlay);
         clearInterval(scoring);
-        console.log("Good job! Your score was: " + that.board.score)
+        $('.screen').show();
       }
     }, 50)
   };

@@ -140,19 +140,20 @@
     }
   };
 
+  Board.prototype.clearAllGrids = function () {
+    for (var i = 0; i < this.landedGrid.length; i++) {
+      for (var j = 0; j < this.landedGrid[i].length; j++) {
+        this.landedGrid[i][j] = 0;
+        this.grid[i][j] = 0;
+      }
+    }
+  }
+
   Board.prototype.clearGrid = function () {
     for (var i = 0; i < this.grid.length; i++) {
       for (var j = 0; j < this.grid[i].length; j++) {
         if (this.landedGrid[i][j] === 0) {
           this.grid[i][j] = 0;
-        }
-
-        if (typeof this.grid[i][j] == "string") {
-        }
-
-        if (this.grid[i][j] == "white") {
-          debugger
-          this.grid[i][j] = this.landedGrid[i][j]
         }
       }
     }

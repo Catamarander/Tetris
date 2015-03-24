@@ -17,6 +17,9 @@
           <div class="board">
           </div>
         </div>
+        <div class="screen">
+          <button>Press Enter</button>
+        </div>
         <div class="right-side">
           <div class="score-holder">
             Your score is:
@@ -32,7 +35,7 @@
           <p class="dir">&larr; Move Left</p>
           <p class="dir">&rarr; Move Right</p>
           <p class="dir">&darr; Descend</p>
-          <p class="dir">SPACE Slam!</p>
+          <p class="dir">SPACE Drop!</p>
         </div>
 
       </div>
@@ -40,7 +43,7 @@
 
     <script type="text/javascript">
       var tetris = new Tetris.Game();
-      $( document ).ready(function() {
+      var gameSetup = function() {
         var board = tetris.board;
         $( document ).bind( "keydown", function(e) {
           if (e.keyCode == 39) {
@@ -60,10 +63,18 @@
             board.superDescend(false);
           } else if (e.keyCode == 68) {
             debugger
+          } else if (tetris.board.isEnded && e.keyCode == 13 ) {
+            $('.board').empty();
+            $('.up-next').empty();
+            tetris = new Tetris.Game();
+            $('.screen').hide();
+            gameSetup();
+            tetris.play();
           }
         });
-        tetris.play();
-      });
+        tetris.newGame();
+      };
+      $( document ).ready(gameSetup());
     </script>
   </body>
 </html>
