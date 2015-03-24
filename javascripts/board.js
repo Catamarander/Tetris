@@ -30,20 +30,20 @@
 
   Board.prototype.generateTetromino = function () {
     this.activeTetromino = this.queue.next();
-    if (this.checkCollisions("descend")) {
+    if (this.checkCollisions(this.activeTetromino, "descend")) {
       this.end();
     }
   };
 
   Board.prototype.toRight = function () {
-    if (!this.checkCollisions("move", "right")) {
+    if (!this.checkCollisions(this.activeTetromino, "move", "right")) {
       this.activeTetromino.move("right")
       this.displayFall();
     }
   };
 
   Board.prototype.toLeft = function () {
-    if (!this.checkCollisions("move", "left")) {
+    if (!this.checkCollisions(this.activeTetromino, "move", "left")) {
       this.activeTetromino.move("left")
       this.displayFall();
     }
@@ -61,7 +61,7 @@
   }
 
   Board.prototype.fakeSuperDescend = function () {
-    while (!this.fakeCheckCollisions("descend")) {
+    while (!this.checkCollisions(this.displayTet, "descend")) {
       this.fakeDescend();
     }
   }
@@ -70,37 +70,15 @@
     this.displayTet.descend();
   }
 
-  Board.prototype.fakeCheckCollisions = function () {
-    var possibleTet = new Tetris.Tetromino({
-      shape: this.displayTet.shape,
-      rotation: this.displayTet.rotation,
-      layouts: this.displayTet.layouts
-    })
-
-    possibleTet.descend();
-
-    var board = this,
-      occupied = false;
-
-    possibleTet.currentLayout().forEach(function (pos) {
-      if (pos[0] >= 22 || board.landedGrid[pos[0]][pos[1]] != 0) {
-        occupied = true;
-      }
-    })
-
-    if (occupied) { return true }
-    return false
-  }
-
   Board.prototype.superDescend = function() {
-    while (!this.checkCollisions("descend")) {
+    while (!this.checkCollisions(this.activeTetromino, "descend")) {
       this.score += 5;
       this.descend();
     }
   };
 
   Board.prototype.descend = function () {
-    if (this.checkCollisions("descend")) {
+    if (this.checkCollisions(this.activeTetromino, "descend")) {
       this.addToLandedGrid(this.activeTetromino);
       this.generateTetromino();
       return
@@ -134,7 +112,7 @@
   };
 
   Board.prototype.rotate = function () {
-    if (!this.checkCollisions("rotate")) {
+    if (!this.checkCollisions(this.activeTetromino, "rotate")) {
       this.activeTetromino.rotate();
       this.displayFall();
     }
@@ -177,11 +155,11 @@
 
   };
 
-  Board.prototype.checkCollisions = function (callback, options) {
+  Board.prototype.checkCollisions = function (tetromino, callback, options) {
     var possibleTet = new Tetris.Tetromino({
-      shape: this.activeTetromino.shape,
-      rotation: this.activeTetromino.rotation,
-      layouts: this.activeTetromino.layouts
+      shape: tetromino.shape,
+      rotation: tetromino.rotation,
+      layouts: tetromino.layouts
     })
 
     possibleTet[callback](options);
