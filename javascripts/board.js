@@ -57,16 +57,16 @@
     })
 
     this.displayTet = landTet;
-    this.fakeSuperDescend();
+    this.displaySuperDescend();
   }
 
-  Board.prototype.fakeSuperDescend = function () {
+  Board.prototype.displaySuperDescend = function () {
     while (!this.checkCollisions(this.displayTet, "descend")) {
-      this.fakeDescend();
+      this.displayDescend();
     }
   }
 
-  Board.prototype.fakeDescend = function () {
+  Board.prototype.displayDescend = function () {
     this.displayTet.descend();
   }
 

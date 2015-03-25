@@ -21,7 +21,7 @@
     var that = this;
     this.board.clearAllGrids();
     $('.screen').hide();
-    var falling = setInterval(that.board.descend.bind(that.board), 160)
+    var falling = setInterval(that.board.descend.bind(that.board, that.board.activeTetromino), 160)
     var update = setInterval(that.board.updateGrid.bind(that.board), 50)
     var render = setInterval(that.view.render.bind(that.view), 100)
     var renderUpNext = setInterval(that.view.renderUpNext.bind(that.view), 500)
