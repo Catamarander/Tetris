@@ -35,6 +35,8 @@
         clearInterval(gamePlay);
         clearInterval(scoring);
         $('.screen').show();
+        that.board.isEnded = false;
+        that.newGame();
       }
     }, 50)
   };

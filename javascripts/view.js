@@ -46,7 +46,6 @@
         this.unSetCell('.board', j, i, 'tetris-cell')
         if (this.board.grid[i][j] != 0) {
           this.setCell('.board', j, i, this.board.grid[i][j])
-        } else {
         }
       }
     }
