@@ -28,7 +28,7 @@ h3 {
 button {
   text-align: center;
   top: 271px;
-  left: 34px;
+  left: 45px;
   font-size: 2.5em;
   border-radius: 15px;
   position: absolute;
@@ -69,6 +69,12 @@ button {
   text-align: center;
   padding: 5px;
   font-size: 4em;
+}
+
+.up-next-title {
+  text-align: center;
+  font-size: 1.5em;
+  margin-bottom: 15px;
 }
 
 .up-next {
